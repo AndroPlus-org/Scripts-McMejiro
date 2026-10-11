@@ -106,7 +106,8 @@ def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
     font.gasp = mejiro_gasp()
 
     # TTF の生成
-    font.generate(ko_path, '', ('short-post', 'opentype', 'PfEd-lookups'))
+    # Roboto のヒンティング命令は参照先の fpgm/cvt/prep が無く掠れの原因になるので出力しない
+    font.generate(ko_path, '', ('short-post', 'opentype', 'PfEd-lookups', 'omit-instructions'))
 
 if __name__ == '__main__':
     main()
