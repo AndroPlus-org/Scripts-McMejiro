@@ -4,9 +4,11 @@ bldblu=${txtbld}$(tput setaf 4)
 
 mkdir -p mejiro mplus roboto
 cd roboto
-wget https://fonts.google.com/download?family=Roboto -O roboto.zip
-unzip roboto.zip
 wget "https://github.com/google/fonts/raw/main/ofl/roboto/Roboto%5Bwdth,wght%5D.ttf" -O "Roboto[wdth,wght].ttf"
+# 静的フォントはバリアブルフォントから切り出す (Google Fonts の ZIP 配布は終了)
+for w in Thin:100 Light:300 Regular:400 Medium:500 Bold:700 Black:900; do
+    fonttools varLib.instancer "Roboto[wdth,wght].ttf" wght=${w#*:} wdth=100 --static -o "Roboto-${w%%:*}.ttf"
+done
 cd ../
 
 cd mplus

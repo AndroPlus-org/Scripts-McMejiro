@@ -17,7 +17,7 @@ git clone https://github.com/AndroPlus-org/Scripts-McMejiro make_mejiro
 cd make_mejiro
 ```
 
-M+ 1 と Roboto (静的フォント・バリアブルフォント) を `mplus/`、`roboto/` にダウンロードします。`wget` と `unzip` が必要です。
+M+ 1 と Roboto (静的フォント・バリアブルフォント) を `mplus/`、`roboto/` にダウンロードします。`wget`、`unzip`、fontTools (`pip install fonttools`) が必要です。Roboto の静的フォントはバリアブルフォントから切り出します。
 
 ```
 bash setup.sh

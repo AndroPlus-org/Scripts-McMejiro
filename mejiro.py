@@ -18,12 +18,12 @@ mejiro_path = "./mejiro"
 # フォントリスト
 # Roboto ファイル名, M+ ファイル名, Mejiro ウェイト
 font_list = [
-	("Roboto-Thin.ttf", "Mplus1-Thin.ttf", "Thin"),
-    ("Roboto-Light.ttf", "Mplus1-Light.ttf", "Light"),
-    ("Roboto-Regular.ttf", "Mplus1-Regular.ttf", "Regular"),
-    ("Roboto-Medium.ttf", "Mplus1-Medium.ttf", "Semibold"),
-    ("Roboto-Bold.ttf", "Mplus1-Bold.ttf", "Bold"),
-    ("Roboto-Black.ttf", "Mplus1-Black.ttf", "Extrabold"),
+	("Roboto-Thin.ttf", "MPLUS1-Thin.ttf", "Thin"),
+    ("Roboto-Light.ttf", "MPLUS1-Light.ttf", "Light"),
+    ("Roboto-Regular.ttf", "MPLUS1-Regular.ttf", "Regular"),
+    ("Roboto-Medium.ttf", "MPLUS1-Medium.ttf", "Semibold"),
+    ("Roboto-Bold.ttf", "MPLUS1-Bold.ttf", "Bold"),
+    ("Roboto-Black.ttf", "MPLUS1-Black.ttf", "Extrabold"),
 ]
 
 def main():
