@@ -21,3 +21,15 @@ bash setup.sh
 ```
 fontforge -lang=py -script mejiro.py
 ```
+
+### バリアブルフォント (wght 100-900)
+
+M+ 1 と Roboto のバリアブルフォントから `mejiro/McMejiro[wght].ttf` を生成します。
+
+```
+pip install fonttools
+```
+
+```
+python3 mejiro_vf.py
+```
