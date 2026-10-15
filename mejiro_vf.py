@@ -18,6 +18,8 @@ from fontTools.designspaceLib import (
     SourceDescriptor,
 )
 from fontTools.otlLib.builder import buildStatTable
+from fontTools.pens.recordingPen import DecomposingRecordingPen
+from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 from fontTools.ttLib.scaleUpem import scale_upem
 from fontTools.ttLib.tables import ttProgram
@@ -82,11 +84,40 @@ def generate_master(mpvf, rbvf, wght):
     # EMの大きさを2048に設定する
     scale_upem(font, upem)
 
+    decompose_replaced_refs(font, set(rbfont.getGlyphOrder()))
     merge_roboto(font, rbfont)
     remove_kern(font)
     # GSUB はウェイトごとに rvrn の適用結果が異なるため、後で M+ のものを移植する
     del font["GSUB"]
     return font
+
+
+def decompose_replaced_refs(font, replaced):
+    # M+ の複合グリフ (例: U+FF5E は asciitilde を参照) が Roboto のグリフを
+    # 参照しないよう、置き換え前にアウトラインへ展開して M+ の字形を保つ
+    glyf = font["glyf"]
+    glyph_set = font.getGlyphSet()
+    memo = {}
+
+    def refs_replaced(name):
+        if name not in memo:
+            glyph = glyf[name]
+            memo[name] = glyph.isComposite() and any(
+                c.glyphName in replaced or refs_replaced(c.glyphName)
+                for c in glyph.components
+            )
+        return memo[name]
+
+    targets = [n for n in font.getGlyphOrder() if n not in replaced and refs_replaced(n)]
+    outlines = {}
+    for name in targets:
+        rec = DecomposingRecordingPen(glyph_set)
+        glyph_set[name].draw(rec)
+        pen = TTGlyphPen(None)
+        rec.replay(pen)
+        outlines[name] = pen.glyph()
+    for name, glyph in outlines.items():
+        glyf[name] = glyph
 
 
 def merge_roboto(font, rbfont):
