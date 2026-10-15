@@ -23,6 +23,19 @@ M+ 1 と Roboto (静的フォント・バリアブルフォント) を `mplus/`�
 bash setup.sh
 ```
 
+#### Ubuntu / WSL での fontTools の導入
+
+apt の `python3-fonttools` は古く、`fonttools varLib.instancer: error: unrecognized arguments: --static` などのエラーになります。venv を作って pip で最新版を入れてください (Ubuntu 23.04 以降はシステムへの `pip install` が拒否されるため)。
+
+```
+sudo apt install python3-venv
+python3 -m venv ~/.venv/mejiro
+source ~/.venv/mejiro/bin/activate
+pip install fonttools
+```
+
+以降は `source ~/.venv/mejiro/bin/activate` してから `setup.sh` や `mejiro_vf.py` を実行します。apt 版が入っている場合は `sudo apt remove python3-fonttools fonttools` で削除しておくと混同しません。
+
 ### 静的フォント
 
 FontForge interactive console で実行します。
